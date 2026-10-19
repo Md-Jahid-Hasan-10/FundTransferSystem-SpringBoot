@@ -15,7 +15,7 @@ import jakarta.persistence.LockModeType;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.bank.fundtransfer.exception.AuthenticationFailedException;
 import java.util.List;
 
 /** Operations for bank staff. Phase 6 replaces this simple login with real security. */
@@ -44,7 +44,7 @@ public class AdminService {
     /** Returns normally if the credentials are correct; otherwise throws. */
     public void login(String username, String password) {
         if (!properties.adminUsername().equals(username) || !properties.adminPassword().equals(password)) {
-            throw new BankException("Invalid admin username or password.");
+            throw new AuthenticationFailedException("Invalid admin username or password.");
         }
     }
 

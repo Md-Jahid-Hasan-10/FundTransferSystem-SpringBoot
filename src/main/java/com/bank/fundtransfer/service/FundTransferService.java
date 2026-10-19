@@ -371,7 +371,15 @@ public class FundTransferService {
         lockRow(request);
         return request;
     }
-
+    @Transactional(readOnly = true)
+    public TransactionRequest getRequest(Customer customer, String requestCode) {
+        TransactionRequest request = requests.findByRequestCode(requestCode)
+                .orElseThrow(() -> new BankException("Request not found."));
+        if (!request.getCustomer().getCustomerCode().equals(customer.getCustomerCode())) {
+            throw new BankException("Request not found.");
+        }
+        return request;
+    }
     private BigDecimal normalizeAmount(BigDecimal amount) {
         if (amount == null || amount.signum() <= 0) {
             throw new InvalidAmountException("Amount must be greater than zero.");
