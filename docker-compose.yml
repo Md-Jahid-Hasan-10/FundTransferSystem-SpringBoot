@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: fund-postgres
+    environment:
+      POSTGRES_USER: fund_user
+      POSTGRES_PASSWORD: fund_pass
+      POSTGRES_DB: fundtransfer
+    ports:
+      - "5433:5432"
+    volumes:
+      - fund_pgdata:/var/lib/postgresql/data
+      - ./docker/init-test-db.sql:/docker-entrypoint-initdb.d/init-test-db.sql
+
+volumes:
+  fund_pgdata:
