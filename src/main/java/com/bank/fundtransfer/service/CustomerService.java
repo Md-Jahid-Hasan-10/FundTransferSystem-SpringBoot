@@ -10,7 +10,7 @@ import com.bank.fundtransfer.repository.CustomerRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import com.bank.fundtransfer.exception.AuthenticationFailedException;
 import java.util.List;
 
 /** Registration, login and account opening. */
@@ -57,9 +57,9 @@ public class CustomerService {
     @Transactional(readOnly = true)
     public Customer login(String customerCode, String pin) {
         Customer customer = customers.findByCustomerCode(customerCode)
-                .orElseThrow(() -> new BankException("Invalid customer ID or PIN."));
+                .orElseThrow(() -> new AuthenticationFailedException("Invalid customer ID or PIN."));
         if (pin == null || !passwordEncoder.matches(pin, customer.getPinHash())) {
-            throw new BankException("Invalid customer ID or PIN.");
+            throw new AuthenticationFailedException("Invalid customer ID or PIN.");
         }
         return customer;
     }
