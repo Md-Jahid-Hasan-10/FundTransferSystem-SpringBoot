@@ -18,3 +18,17 @@ spring:
 
 server:
   port: 8080
+
+bank:
+  minimum-balance: "100.00"
+  per-transaction-limit: "2000.00"
+  daily-limit: "3000.00"
+  request-expiry-seconds: 300
+  currency-symbol: "৳"
+  admin-username: admin
+  admin-password: admin123
+  otp:
+    fixed: true
+    fixed-value: "123456"
+    expiry-seconds: 120
+    max-attempts: 3

@@ -1,3 +1,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/fundtransfer_test
+bank:
+  otp:
+    fixed: true
+    fixed-value: "111111"
